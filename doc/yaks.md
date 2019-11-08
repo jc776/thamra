@@ -1,3 +1,5 @@
+![quality_level.png](quality_level.png)
+
 ## target directory
 figwheel can create/add it for you
 add to paths, 'keep' in git, try to remember not to completely delete it?
@@ -13,3 +15,6 @@ I'll deal with this when something I want isn't on cljsjs I guess
 ## adding libraries
 add-lib is neat for CLJ code
 figwheel doesn't always detect new CLJS libs, though
+
+----
+[Image source](https://derpibooru.org/1363137)
