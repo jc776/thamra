@@ -17,13 +17,13 @@
 	)))
 
 (def el 
-  #_(d/div {:style #js {"fontWeight" "bold"}} "Hello " "there!")
-  
-  #_(Hello {:name "world!"})
-  
-  (Counter {:text "Count: "})
-  
-  )
+  (d/<> {}
+    (Hello {:key "hello" :name "world!"})
+	
+	(Counter {:key "count" :text "Count: "})
+	
+	(d/div {:key "text" :style {"fontWeight" "bold"}} "Hello " "there!")
+  ))
 
 (js/console.log "load client" el)
 

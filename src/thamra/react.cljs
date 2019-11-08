@@ -1,43 +1,21 @@
 (ns thamra.react
   (:refer-clojure :exclude [time map meta mask])
   (:require ["react" :as react]
+            [cljs-bean.core :as bean]
             [goog.object :as gobj])
   (:require-macros [thamra.react :as tr]))
   
 ;; todo: "optional props"
 ;; todo: defn vs macro for hyperscript
 ;; ignoring: "compile time props"
-;; do I like "shallow convert"? how useful is that for your components vs js ones?
-  
-(defn set-obj [o k v]
-  (do (gobj/set o k v)
-      o))
-  
-(defn clj->props [props]
-  (loop [pxs (seq props)
-          js-props #js {}]
-     (if (nil? pxs)
-       js-props
-	   (let [p (first pxs)
-             k (key p)
-             v (val p)]
-	     (set-obj js-props (name k) v)
-	     (recur (next pxs)
-                js-props)))))
 
 (defn h [type props & children]
-  (apply react/createElement type (clj->props props) children))
+  (apply react/createElement type (bean/->js props) children))
+  
+(defn <> [props & children]
+  (apply h react/Fragment props children))
 
-;; is there a better "cljs bean" one of these?
-(defn props->clj [props]
-  (loop [ks (js/Object.keys props)
-         m {}]
-    (if (nil? ks)
-      m
-      (let [k (first ks)
-            v (gobj/get props k)]
-        (recur (next ks)
-               (assoc m (keyword k) v))))))
+(def props->clj bean/->clj)
 			   
 (tr/define-tags
   a abbr address area article aside audio b base bdi bdo big blockquote body br
