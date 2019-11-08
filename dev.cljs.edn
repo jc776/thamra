@@ -1,1 +1,2 @@
+^{:cljsjs-resources true}
 {:main thamra.client}

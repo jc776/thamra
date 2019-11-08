@@ -1,5 +1,6 @@
 (ns thamra.client
-  (:require [thamra.react :as d]
+  (:require [thamra.editor :as editor]
+            [thamra.react :as d]
             ["react" :as react]
             ["react-dom" :as react-dom]))
 
@@ -23,6 +24,8 @@
 	(Counter {:key "count" :text "Count: "})
 	
 	(d/div {:key "text" :style {"fontWeight" "bold"}} "Hello " "there!")
+	
+	(editor/Editor {})
   ))
 
 (js/console.log "load client" el)

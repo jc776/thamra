@@ -12,7 +12,6 @@
   cljsjs/react {:mvn/version "16.11.0-0"}
   cljsjs/react-dom {:mvn/version "16.11.0-0"}
   
-  ;; hmm I wonder why
   cljsjs/codemirror {:mvn/version "5.44.0-1"}
   cljsjs/parinfer {:mvn/version "3.11.0-0"}
   cljsjs/parinfer-codemirror {:mvn/version "1.4.1-2"}
