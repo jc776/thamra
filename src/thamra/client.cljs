@@ -1,5 +1,6 @@
 (ns thamra.client
-  (:require [thamra.editor :as editor]
+  (:require [cljs.repl :as repl]
+            [thamra.editor :as editor]
             [thamra.react :as d]
             ["react" :as react]
             ["react-dom" :as react-dom]))
@@ -16,16 +17,29 @@
 	  (d/button {:onClick #(setCount inc)} "+")
 	
 	)))
+	
+(defn fact
+  ([n] (fact n 1))
+  ([n f]
+  (if (<= n 1)
+    f
+    (recur (dec n) (* f n)))))
+
+(def initial-src 
+  (str (with-out-str (repl/source fact))
+       "\n"
+	   "(fact 5)"))
 
 (def el 
   (d/<> {}
-    (Hello {:key "hello" :name "world!"})
+    #_(Hello {:key "hello" :name "world!"})
 	
-	(Counter {:key "count" :text "Count: "})
+	#_(Counter {:key "count" :text "Count: "})
 	
-	(d/div {:key "text" :style {"fontWeight" "bold"}} "Hello " "there!")
+	#_(d/div {:key "text" :style {"fontWeight" "bold"}} "Hello " "there!")
 	
-	(editor/Editor {})
+	(editor/Editor {:key "editor" :defaultValue initial-src})
+	
   ))
 
 (js/console.log "load client" el)

@@ -1,2 +1,3 @@
-^{:cljsjs-resources true}
+^{:cljsjs-resources true
+  :css-dirs ["resources/public/css"]}
 {:main thamra.client}
