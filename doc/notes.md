@@ -1,19 +1,17 @@
 ## Done
 - get started!
 - minimum viable React wrapper
-
-## Next
-- Instarepl?
+- playground: editor + results.
 
 ## Later
 - Server
   - Edit and save
   - Eval
-  - Instarepl
+  - Playground
 - Client
   - Edit and save
   - Eval
-  - Instarepl
+  - Playground
   - Plain cljs watch: if I refresh, use latest saved client.
 - Console output
 - File/namespace browser

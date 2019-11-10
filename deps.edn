@@ -7,6 +7,8 @@
   com.bhauman/figwheel-main {:mvn/version "0.2.3"}
   com.bhauman/rebel-readline-cljs {:mvn/version "0.1.4"}
   
+  eval-soup {:mvn/version "1.5.0"}
+  
   cljs-bean {:mvn/version "1.4.0"}
   
   cljsjs/react {:mvn/version "16.11.0-0"}

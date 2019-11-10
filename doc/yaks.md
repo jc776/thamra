@@ -1,4 +1,4 @@
-![quality_level.png](quality_level.png)
+![quality_level.png](img/1-quality-level.png)
 
 ## target directory
 figwheel can create/add it for you

@@ -1,6 +1,7 @@
 (ns thamra.editor
   (:require [thamra.codemirror :refer [CodeMirror]]
             [thamra.react :as d]
+			[eval-soup.core :as es]
             [clojure.tools.reader :as reader]
 			[clojure.tools.reader.reader-types :as rt]
             ["react" :as react]))
@@ -16,11 +17,6 @@
    (let [rdr (rt/indexing-push-back-reader string)]
      (take-while #(not= ::EOF %) (repeatedly #(read-one rdr feature))))))
 	
-(defn line-note [idx form]
-  (d/div {:key idx} 
-    (d/pre {:style {:display "inline-block" :color "red"}} (str (meta form))) 
-	(d/pre {:style {:display "inline-block" :color "blue"}} (str form))))
-	
 (defn cljs-result-note [result]
   (let [{:keys [line column]} (meta result)]
     {:line line :ch column :text (str result)}))
@@ -29,23 +25,32 @@
   (let [{:keys [line col]} (ex-data ex)]
     {:line line :ch col :text (ex-message ex)}))
 	
-(defn cljs-notes [string]
+
+;; todo: don't continue past reader errors https://github.com/nrepl/nrepl/pull/107
+;; todo: don't continue past eval errors
+(defn cljs-notes [code cb]
   (try
-    (mapv cljs-result-note (lined-read string :cljs))
+    (es/code->results (lined-read code :cljs) cb)
 	(catch js/Error ex
-	  [(cljs-exception-note ex)]
+	  (cb [(ex-message ex)])
 	)))
 	
 ;; todo: eval results 
 ;; todo: keep the objects around to inspect/use later
 (defn result-line [idx res]
-  (d/pre {:className "app-result" :key idx} (:text res)))
+  (d/pre {:className "app-result" :key idx} (str res)))
 
 (d/defc Editor [{:keys [defaultValue]}]
-  (let [[text setText] (react/useState defaultValue)]
+  (let [[text setText] (react/useState defaultValue)
+        [results setResults] (react/useState [])]
+	(react/useEffect
+	  (fn []
+	    (cljs-notes text setResults)
+	    js/undefined)
+	  #js [text])
   	(d/div {:className "app-container"}
 	  (d/div {:className "app-editor"}
 	    (CodeMirror {:defaultValue defaultValue :onChange setText}))
 	  (d/div {:className "app-results"}
-	    (map-indexed result-line (cljs-notes text) )))))
+	    (map-indexed result-line results )))))
 	  
