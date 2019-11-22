@@ -1,9 +1,9 @@
 (ns thamra.editor
   (:require [thamra.codemirror :refer [CodeMirror]]
             [thamra.react :as d]
-			[eval-soup.core :as es]
+            [eval-soup.core :as es]
             [clojure.tools.reader :as reader]
-			[clojure.tools.reader.reader-types :as rt]
+            [clojure.tools.reader.reader-types :as rt]
             ["react" :as react]))
   
 (defn read-one [rdr feature]

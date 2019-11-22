@@ -1,9 +1,9 @@
 (ns thamra.codemirror
   (:require [thamra.react :as d]
             ["react" :as react]
-			[cljsjs.codemirror.mode.clojure] ;; side effect
-			["codemirror" :as codemirror]
-			["parinfer-codemirror" :as par-cm]))
+            [cljsjs.codemirror.mode.clojure] ;; side effect
+            ["codemirror" :as codemirror]
+            ["parinfer-codemirror" :as par-cm]))
 
 (def codemirror-opts
   {:mode "clojure"
