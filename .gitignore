@@ -1,4 +1,6 @@
 .cpcache/
+.shadow-cljs/
+node_modules/
 
 target/*
 !target/.keep

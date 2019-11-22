@@ -1,7 +1,7 @@
-(ns thamra.client
+(ns ^:dev/always thamra.client
   (:require [cljs.repl :as repl]
-            [thamra.editor :as editor]
-            [thamra.react :as d]
+            #_[thamra.editor :as editor]
+            [thamra.dom :as d]
             ["react" :as react]
             ["react-dom" :as react-dom]))
 
@@ -32,17 +32,26 @@
 
 (def el 
   (d/<> {}
-    #_(Hello {:key "hello" :name "world!"})
+    (Hello {:key "hello" :name "world!"})
 	
-	#_(Counter {:key "count" :text "Count: "})
+	(Counter {:key "count" :text "Count: "})
 	
-	#_(d/div {:key "text" :style {"fontWeight" "bold"}} "Hello " "there!")
+	(d/div {:key "text" :style {"fontWeight" "bold"}} "Hello " "there!")
 	
-	(editor/Editor {:key "editor" :defaultValue initial-src})
+	(d/pre {} initial-src)
+	
+	#_(editor/Editor {:key "editor" :defaultValue initial-src})
 	
   ))
 
-(js/console.log "load client" el)
+(defn run []
+  (js/console.log "hello" (js/Date.))
+  (react-dom/render el (js/document.getElementById "app")))
 
+(defn ^:dev/before-load stop []
+  (js/console.log "stop"))
 
-(react-dom/render el (js/document.getElementById "app"))
+(defn ^:dev/after-load start! []
+  (run))
+
+(defn init! [] (start!))
