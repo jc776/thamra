@@ -9,13 +9,20 @@
 ;; todo: defn vs macro for hyperscript
 ;; ignoring: "compile time props"
 
+(def props->clj bean/bean)
+
+(defn clj->props [input]
+  ;; when bean? use .obj ...
+  (let [m (js-obj)]
+    (doseq [[k v] input]
+      (gobj/set m (name k) v))
+    m))
+
 (defn h [type props & children]
-  (apply react/createElement type (bean/->js props) children))
+  (apply react/createElement type (clj->props props) children))
 
 (defn <> [props & children]
   (apply h react/Fragment props children))
-
-(def props->clj bean/->clj)
 
 (d/define-tags
   a abbr address area article aside audio b base bdi bdo big blockquote body br
