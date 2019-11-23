@@ -1,4 +1,4 @@
-(ns thamra.app
+(ns thamra.demo.citrus-counter
   (:require [thamra.hook :as hook]
             [thamra.dom :as d]
             [citrus.core :as citrus]))
@@ -52,5 +52,5 @@
   (let [count (hook/useSub r [:counter])]
     (d/div {}
       (d/button {:onClick #(citrus/dispatch! r :counter :dec)} "-")
-      (d/span {} count)
+      (d/span {} "Citrus says: " count)
       (d/button {:onClick #(citrus/dispatch! r :counter :inc)} "+"))))

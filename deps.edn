@@ -8,7 +8,7 @@
   thheller/shadow-cljs {:mvn/version "2.8.69"}
   
   cljs-bean {:mvn/version "1.4.0"}
-  clj-commons/citrus {:mvn/version "3.2.3"}}
+  clj-commons/citrus {:mvn/version "3.2.3" :exclusions [rum]}}
  
  :aliases
  {:dev

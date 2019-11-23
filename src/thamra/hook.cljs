@@ -36,6 +36,7 @@
         [val set-val] (useState current-val)]
     (useEffect
       (fn []
+	    (println "effect" a)
         (let [id (str (random-uuid))]
           (add-watch a id
             (fn [_ _ _ new-state]
@@ -48,6 +49,7 @@
     current-val))
 	
 (defn subscribe! [args]
+  (println "sub" args)
   (apply citrus.core/subscription args))
 
 (def subscribe (memoize subscribe!))
