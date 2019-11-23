@@ -1,10 +1,10 @@
-(ns thamra.react)
+(ns thamra.dom)
 
 (defn fnc* [display-name props-bindings body]
   `(fn ~display-name [props# maybe-ref#]
-     (let [~props-bindings [(thamra.react/props->clj props#) maybe-ref#]]
+     (let [~props-bindings [(thamra.dom/props->clj props#) maybe-ref#]]
        (do ~@body))))
-	  
+
 (defmacro fnc [display-name props-bindings & body]
   (fnc* display-name props-bindings body))
 
@@ -19,10 +19,10 @@
   (let [tag-impl (symbol (str tag "Impl"))
         tag-wrap (symbol (str tag "Wrap"))]
     `(do (def ~tag-impl ~(fnc* tag props-bindings body))
-	     (defonce ~tag-wrap (fn [& args#] (apply ~tag-impl args#)))
-		 (defn ~tag [& args2#]
-           (apply h ~tag-wrap args2#))
-         (goog.object/set ~tag-impl "displayName" ~(str *ns* "/" tag)))))
+       (defonce ~tag-wrap (fn [& args#] (apply ~tag-impl args#)))
+      (defn ~tag [& args2#]
+              (apply h ~tag-wrap args2#))
+      (goog.object/set ~tag-impl "displayName" ~(str *ns* "/" tag)))))
 
 (defn tag-definition [tag]
   `(defn ~tag [& args#]

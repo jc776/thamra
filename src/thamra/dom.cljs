@@ -1,23 +1,30 @@
-(ns thamra.react
+(ns thamra.dom
   (:refer-clojure :exclude [time map meta mask])
   (:require ["react" :as react]
             [cljs-bean.core :as bean]
             [goog.object :as gobj])
-  (:require-macros [thamra.react :as tr]))
-  
+  (:require-macros [thamra.dom :as d]))
+
 ;; todo: "optional props"
 ;; todo: defn vs macro for hyperscript
 ;; ignoring: "compile time props"
 
+(def props->clj bean/bean)
+
+(defn clj->props [input]
+  ;; when bean? use .obj ...
+  (let [m (js-obj)]
+    (doseq [[k v] input]
+      (gobj/set m (name k) v))
+    m))
+
 (defn h [type props & children]
-  (apply react/createElement type (bean/->js props) children))
-  
+  (apply react/createElement type (clj->props props) children))
+
 (defn <> [props & children]
   (apply h react/Fragment props children))
 
-(def props->clj bean/->clj)
-			   
-(tr/define-tags
+(d/define-tags
   a abbr address area article aside audio b base bdi bdo big blockquote body br
   button canvas caption cite code col colgroup data datalist dd del details dfn
   div dl dt em embed fieldset figcaption figure footer form h1 h2 h3 h4 h5 h6

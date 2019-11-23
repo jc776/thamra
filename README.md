@@ -4,15 +4,24 @@
 
 Some spare parts that might one day become tools.
 
-Run in Figwheel (launches browser):
+Start shadow-cljs, then view at [localhost:8700](http://localhost:8700)
 
 ```bash
-$ clj -A:dev
+$ clj -A:deps:dev:repl
+...
+shadow-cljs - HTTP server available at http://localhost:8700
+shadow-cljs - server version: 2.8.74 running at http://localhost:9630
+...
+user=> (start)
+[:app] Configuring build.
+[:app] Compiling ...
+[:app] Build completed. (187 files, 2 compiled, 0 warnings, 2.42s)
+:watching
 ```
 
 ## Latest progress
 
-"Playground" for a single editor with results as you type. No visual component.
+`shadow-remote` REPLs into client and server. Application state in `citrus` , views controlled by React hooks. No visual component.
 
-![2-the-littlest-instarepl](doc/img/2-the-littlest-instarepl.png)
+![3-shadow-remote-repl](doc/img/3-shadow-remote-repl.png)
 

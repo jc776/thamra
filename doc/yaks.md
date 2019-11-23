@@ -1,7 +1,7 @@
 ![quality_level.png](img/1-quality-level.png)
 
 ## target directory
-figwheel can create/add it for you
+figwheel can create/add it for you - shadow doesn't
 add to paths, 'keep' in git, try to remember not to completely delete it?
 
 ## npm?
@@ -11,6 +11,14 @@ webpack/rollup CAN build nearly-equivalent bundles OR be configured to use "glob
 more than one layer of rollup "use globals" -> dev.cljs.edn "use globals" -> cljs code "haha, pretend to import it"
 shadow-cljs is a different abstraction - not bad, but I sort of prefer a few things figwheel does
 I'll deal with this when something I want isn't on cljsjs I guess
+
+## npm II
+react-refresh not on cljsjs
+various components eg react-rnd would be nice
+
+## shadow-cljs "0 compiled"
+this was weird
+https://github.com/thheller/shadow-cljs/issues/595
 
 ## adding libraries
 add-lib is neat for CLJ code
