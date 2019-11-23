@@ -11,7 +11,7 @@
    (react/useEffect f))
   ([f deps]
    (react/useEffect f (to-array deps))))
-   
+
 (defn useValue
   "Caches `x`. When a new `x` is passed in, returns new `x` only if it is
   not structurally equal to the previous `x`.
@@ -36,24 +36,24 @@
         [val set-val] (useState current-val)]
     (useEffect
       (fn []
-	    (println "effect" a)
+        (println "effect" a)
         (let [id (str (random-uuid))]
           (add-watch a id
             (fn [_ _ _ new-state]
               (set-val new-state)))
-		  ;; updated between first render and this effect
-	      (when (not= @a val)
+          ;; updated between first render and this effect
+          (when (not= @a val)
             (set-val @a))
           #(remove-watch a id)))
       [a])
     current-val))
-	
+
 (defn subscribe! [args]
   (println "sub" args)
   (apply citrus.core/subscription args))
 
 (def subscribe (memoize subscribe!))
-	
+
 (defn useSub [& args]
   (let [current-sub (subscribe args)]
     (useAtom current-sub)))

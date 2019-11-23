@@ -1,7 +1,12 @@
 ## Done
 - get started!
 - minimum viable React wrapper
+- citrus + React hooks: events + effects, like Elm. wow!
 - playground: editor + results.
+
+## Next
+- shadow.remote is exactly what I wanted for client/server eval + storing results to inspect
+- rework playground to use that!
 
 ## Later
 - Server

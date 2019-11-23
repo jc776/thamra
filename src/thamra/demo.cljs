@@ -1,25 +1,22 @@
 (ns thamra.demo
   (:require [thamra.demo.basic :as b]
             [thamra.demo.citrus-counter :as ct]
-			[thamra.dom :as d]
-			[cljs.repl :as repl]
-			[citrus.core :as citrus]))
-
-(d/defc Hello [{:keys [name]}]
-  (d/h1 {} "Hello " name))
+            [thamra.dom :as d]
+            [cljs.repl :as repl]
+            [citrus.core :as citrus]))
 
 (defn fact
   ([n] (fact n 1))
   ([n f]
-  (if (<= n 1)
-    f
-    (recur (dec n) (* f n)))))
+   (if (<= n 1)
+     f
+     (recur (dec n) (* f n)))))
 
-(def initial-src 
+(def initial-src
   (str (with-out-str (repl/source fact))
        "\n"
-	   "(fact 5)"))
-	   
+       "(fact 5)"))
+
 ;; create Reconciler instance
 (defonce reconciler
   (citrus/reconciler
@@ -33,18 +30,16 @@
 ;; initialize controllers
 (defonce init-ctrl (citrus/broadcast-sync! reconciler :init))
 
-(def el 
+(def el
   (d/<> {}
     (b/Hello {:key "hello" :name "world!"})
-	
-	(b/Counter {:key "count" :text "Count: "})
-	
-	(ct/AppCounter {:r reconciler})
-	
-	(d/div {:key "text" :style {"fontWeight" "bold"}} "Hello " "there!")
-	
-	(d/pre {} initial-src)
-	
-	#_(editor/Editor {:key "editor" :defaultValue initial-src})
-	
-  ))
+
+    (b/Counter {:key "count" :text "Count: "})
+
+    (ct/AppCounter {:r reconciler})
+
+    (d/div {:key "text" :style {"fontWeight" "bold"}} "Hello " "there!")
+
+    (d/pre {} initial-src)
+
+    #_(editor/Editor {:key "editor" :defaultValue initial-src})))

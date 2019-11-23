@@ -35,7 +35,7 @@
      {:method :set
       :data next-counter
       :key :counter}})) ;; persist to local storage
-	  
+
 ;; effects
 
 (defn local-storage [reconciler controller-name effect]
@@ -45,7 +45,7 @@
       :get (->> (js/localStorage.getItem (name key))
                 (citrus/dispatch! reconciler controller-name on-read))
       nil)))
-	  
+
 ;; view
 
 (d/defc AppCounter [{:keys [r]}]
