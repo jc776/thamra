@@ -9,13 +9,15 @@
 (def msg-reader (transit/reader :json))
 
 (defn tool-message [rec ctrl e]
-  (let [{:keys [op mid] :as msg} (transit/read msg-reader (.-data e))]
-    ;; do I need "call"? (mid -> saved state -> dispatch msg state)
+  (let [msg (transit/read msg-reader (.-data e))]
     (citrus/dispatch! rec ctrl :tool-message msg)))
 
 (defn tool-send [rec ctrl {:keys [ws-state msg]}]
-  (let [json (transit/write msg-writer msg)]
-    (.send (:socket ws-state) json)))
+  (println "tool-send" msg ws-state)
+  (if-let [socket (:socket ws-state)]
+    (let [json (transit/write msg-writer msg)]
+      (.send (:socket ws-state) json))
+    (js/console.warn "tried to send before socket open")))
 
 (defn tool-send-n [rec ctrl {:keys [ws-state msgs]}]
   (doseq [msg msgs]
@@ -34,8 +36,11 @@
     (.addEventListener socket "error"
       (fn [e] (js/console.error "tool-error" e)))))
 
+(defn dispatch [& args]
+  (apply citrus/dispatch! args))
 
 (def effect-handlers
   {:tool-connect tool-connect
    :tool-send tool-send
-   :tool-send-n tool-send-n})
+   :tool-send-n tool-send-n
+   :dispatch dispatch})

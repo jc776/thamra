@@ -8,7 +8,8 @@
 
 (def codemirror-opts
   {:mode "clojure"
-   :lineNumbers true})
+   :lineNumbers true
+   :viewportMargin js/Infinity})
 
 (d/defc CodeMirror [{:keys [defaultValue onChange onEval]}]
   (let [inputRef (react/useRef)]

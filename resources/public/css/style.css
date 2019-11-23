@@ -17,23 +17,37 @@ body {
 	height: 100%;
 }
 
-.app-container {
-	display: flex;
-	height: 100%;
+.workspace {
+  border: 1px solid black;
+  margin: 10px;
 }
 
-.app-editor {
+.workspace .CodeMirror {
+  height: 100%;
+}
+
+.workspace .CodeMirror-scroll {
+  min-height: 120px;
+}
+
+.workspace-container {
+	display: flex;
+}
+
+.workspace-editor {
 	background-color: #ccaaaa;
 	flex: 1;
 	height: 100%;
 }
 
-.app-results {
+.workspace-results {
 	background-color: #aaccaa;
 	flex: 1;
 	height: 100%;
+  min-height: 120px;
+  max-width: 50%;
 }
 
-.app-result {
+.workspace-result {
 	margin: 0;
 }
