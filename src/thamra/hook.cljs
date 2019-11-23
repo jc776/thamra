@@ -30,21 +30,25 @@
                        #js [x'])
       x')))
 
+(defn remove-watch-a [a id]
+  (println "end watch" a id)
+  (remove-watch a id))
+
 (defn useAtom
   [a]
   (let [current-val @a
         [val set-val] (useState current-val)]
     (useEffect
       (fn []
-        (println "effect" a)
         (let [id (str (random-uuid))]
+          (println "start watch" a id)
           (add-watch a id
             (fn [_ _ _ new-state]
               (set-val new-state)))
           ;; updated between first render and this effect
           (when (not= @a val)
             (set-val @a))
-          #(remove-watch a id)))
+          #(remove-watch-a a id)))
       [a])
     current-val))
 

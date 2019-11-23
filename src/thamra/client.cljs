@@ -1,9 +1,9 @@
 (ns ^:dev/always thamra.client
-  (:require [thamra.demo :as demo]
+  (:require [thamra.shadow :as shadow]
             ["react-dom" :as react-dom]))
 
 (defn run []
-  (react-dom/render demo/el (js/document.getElementById "app")))
+  (react-dom/render shadow/el (js/document.getElementById "app")))
 
 (defn ^:dev/before-load stop [])
 
