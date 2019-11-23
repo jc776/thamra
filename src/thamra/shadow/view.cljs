@@ -4,7 +4,7 @@
             [citrus.core :as citrus]))
 
 (d/defc App [{:keys [r]}]
-  (let [state (hook/useSub r [])]
+  (let [state (hook/useSub r [:app])]
     (hook/useEffect
       (fn []
         (citrus/dispatch! r :app :init)
@@ -12,4 +12,7 @@
       #js [r])
     (d/div {}
       (d/pre {} (pr-str state))
-      (d/button {:onClick #(citrus/dispatch! r :app :connect)} "Connect"))))
+      (d/pre {} (pr-str (:ws-state state)))
+      (if (:ws-state state)
+        (d/button {:onClick #(citrus/dispatch! r :app :tool-connected)} "Runtimes")
+        (d/button {:onClick #(citrus/dispatch! r :app :init)} "Connect")))))

@@ -5,10 +5,11 @@
             [thamra.dom :as d]
             [citrus.core :as citrus]))
 
-(def reconciler
+(defonce reconciler
   (citrus/reconciler
     {:state (atom model/init-state)
-     :controllers {:app model/handle-event}
+     :controllers {:app #'model/handle-event}
+     ;; how to make this one reloadable?
      :effect-handlers fx/effect-handlers}))
 
 (def el (view/App {:r reconciler}))
